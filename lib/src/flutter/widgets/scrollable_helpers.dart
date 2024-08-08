@@ -94,7 +94,7 @@ class EdgeDraggingAutoScroller {
     );
     assert(
       globalRect.size.width >= _dragTargetRelatedToScrollOrigin.size.width &&
-        globalRect.size.height >= _dragTargetRelatedToScrollOrigin.size.height,
+          globalRect.size.height >= _dragTargetRelatedToScrollOrigin.size.height,
       'Drag target size is larger than scrollable size, which may cause bouncing',
     );
     _scrolling = true;
@@ -122,7 +122,7 @@ class EdgeDraggingAutoScroller {
       case AxisDirection.down:
         if (proxyStart < viewportStart && scrollable.position.pixels > scrollable.position.minScrollExtent) {
           final double overDrag = math.min(viewportStart - proxyStart, overDragMax);
-          newOffset = math.max(scrollable.position.minScrollExtent, scrollable.position.pixels -  overDrag);
+          newOffset = math.max(scrollable.position.minScrollExtent, scrollable.position.pixels - overDrag);
         } else if (proxyEnd > viewportEnd && scrollable.position.pixels < scrollable.position.maxScrollExtent) {
           final double overDrag = math.min(proxyEnd - viewportEnd, overDragMax);
           newOffset = math.min(scrollable.position.maxScrollExtent, scrollable.position.pixels + overDrag);
@@ -265,7 +265,8 @@ class ScrollAction extends ContextAction<ScrollIntent> {
   /// metrics (pixels, viewportDimension, maxScrollExtent, minScrollExtent) are
   /// null. The type and state arguments must not be null, and the widget must
   /// have already been laid out so that the position fields are valid.
-  static double _calculateScrollIncrement(ScrollableState state, { ScrollIncrementType type = ScrollIncrementType.line }) {
+  static double _calculateScrollIncrement(ScrollableState state,
+      {ScrollIncrementType type = ScrollIncrementType.line}) {
     assert(state.position.hasPixels);
     assert(state.resolvedPhysics == null || state.resolvedPhysics!.shouldAcceptUserOffset(state.position));
     if (state.widget.incrementCalculator != null) {
@@ -338,7 +339,7 @@ class ScrollAction extends ContextAction<ScrollIntent> {
     ScrollableState? state = Scrollable.maybeOf(context!);
     if (state == null) {
       final ScrollController primaryScrollController = PrimaryScrollController.of(context);
-      assert (() {
+      assert(() {
         if (primaryScrollController.positions.length != 1) {
           throw FlutterError.fromParts(<DiagnosticsNode>[
             ErrorSummary(
@@ -361,8 +362,8 @@ class ScrollAction extends ContextAction<ScrollIntent> {
         return true;
       }());
 
-      if (primaryScrollController.position.context.notificationContext == null
-          && Scrollable.maybeOf(primaryScrollController.position.context.notificationContext!) == null) {
+      if (primaryScrollController.position.context.notificationContext == null &&
+          Scrollable.maybeOf(primaryScrollController.position.context.notificationContext!) == null) {
         return;
       }
       state = Scrollable.maybeOf(primaryScrollController.position.context.notificationContext!);

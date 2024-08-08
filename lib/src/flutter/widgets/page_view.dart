@@ -94,8 +94,8 @@ class PageView extends StatefulWidget {
     this.clipBehavior = Clip.hardEdge,
     this.scrollBehavior,
     this.padEnds = true,
-  }) : controller = controller ?? _defaultPageController,
-       childrenDelegate = SliverChildListDelegate(children);
+  })  : controller = controller ?? _defaultPageController,
+        childrenDelegate = SliverChildListDelegate(children);
 
   /// Creates a scrollable list that works page by page using widgets that are
   /// created on demand.
@@ -139,12 +139,12 @@ class PageView extends StatefulWidget {
     this.clipBehavior = Clip.hardEdge,
     this.scrollBehavior,
     this.padEnds = true,
-  }) : controller = controller ?? _defaultPageController,
-       childrenDelegate = SliverChildBuilderDelegate(
-         itemBuilder,
-         findChildIndexCallback: findChildIndexCallback,
-         childCount: itemCount,
-       );
+  })  : controller = controller ?? _defaultPageController,
+        childrenDelegate = SliverChildBuilderDelegate(
+          itemBuilder,
+          findChildIndexCallback: findChildIndexCallback,
+          childCount: itemCount,
+        );
 
   /// Creates a scrollable list that works page by page with a custom child
   /// model.
@@ -384,8 +384,8 @@ class _PageViewState extends State<PageView> {
       allowImplicitScrolling: widget.allowImplicitScrolling,
     ).applyTo(
       widget.pageSnapping
-        ? _kPagePhysics.applyTo(widget.physics ?? widget.scrollBehavior?.getScrollPhysics(context))
-        : widget.physics ?? widget.scrollBehavior?.getScrollPhysics(context),
+          ? _kPagePhysics.applyTo(widget.physics ?? widget.scrollBehavior?.getScrollPhysics(context))
+          : widget.physics ?? widget.scrollBehavior?.getScrollPhysics(context),
     );
 
     return NotificationListener<ScrollNotification>(
@@ -438,6 +438,7 @@ class _PageViewState extends State<PageView> {
     description.add(DiagnosticsProperty<PageController>('controller', widget.controller, showName: false));
     description.add(DiagnosticsProperty<ScrollPhysics>('physics', widget.physics, showName: false));
     description.add(FlagProperty('pageSnapping', value: widget.pageSnapping, ifFalse: 'snapping disabled'));
-    description.add(FlagProperty('allowImplicitScrolling', value: widget.allowImplicitScrolling, ifTrue: 'allow implicit scrolling'));
+    description.add(FlagProperty('allowImplicitScrolling',
+        value: widget.allowImplicitScrolling, ifTrue: 'allow implicit scrolling'));
   }
 }

@@ -205,7 +205,9 @@ class _TabBarViewState extends State<TabBarView> {
       await _animateToPage(_currentIndex!, duration: duration, curve: Curves.ease);
     }
     if (mounted) {
-      setState(() { _updateChildren(); });
+      setState(() {
+        _updateChildren();
+      });
     }
     return Future<void>.value();
   }
@@ -216,9 +218,7 @@ class _TabBarViewState extends State<TabBarView> {
 
     // initialPage defines which page is shown when starting the animation.
     // This page is adjacent to the destination page.
-    final int initialPage = _currentIndex! > previousIndex
-        ? _currentIndex! - 1
-        : _currentIndex! + 1;
+    final int initialPage = _currentIndex! > previousIndex ? _currentIndex! - 1 : _currentIndex! + 1;
 
     setState(() {
       // Needed for `RenderSliverMultiBoxAdaptor.move` and kept alive children.
@@ -241,7 +241,9 @@ class _TabBarViewState extends State<TabBarView> {
     }
 
     if (mounted) {
-      setState(() { _updateChildren(); });
+      setState(() {
+        _updateChildren();
+      });
     }
   }
 
@@ -268,7 +270,7 @@ class _TabBarViewState extends State<TabBarView> {
       final bool pageChanged = (_pageController.page! - _controller!.index).abs() > 1.0;
       if (pageChanged) {
         _controller!.index = _pageController.page!.round();
-        _currentIndex =_controller!.index;
+        _currentIndex = _controller!.index;
       }
       _syncControllerOffset();
     } else if (notification is ScrollEndNotification) {
@@ -317,8 +319,8 @@ class _TabBarViewState extends State<TabBarView> {
         clipBehavior: widget.clipBehavior,
         controller: _pageController,
         physics: widget.physics == null
-          ? const PageScrollPhysics().applyTo(const ClampingScrollPhysics())
-          : const PageScrollPhysics().applyTo(widget.physics),
+            ? const PageScrollPhysics().applyTo(const ClampingScrollPhysics())
+            : const PageScrollPhysics().applyTo(widget.physics),
         children: _childrenWithKey,
       ),
     );

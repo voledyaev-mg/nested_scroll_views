@@ -30,9 +30,9 @@ class NestedPageView extends PageView {
     super.physics,
     super.pageSnapping,
     super.onPageChanged,
-    required NullableIndexedWidgetBuilder itemBuilder,
-    ChildIndexGetter? findChildIndexCallback,
-    int? itemCount,
+    required super.itemBuilder,
+    super.findChildIndexCallback,
+    super.itemCount,
     super.dragStartBehavior,
     super.allowImplicitScrolling,
     super.restorationId,
@@ -40,11 +40,7 @@ class NestedPageView extends PageView {
     super.scrollBehavior,
     super.padEnds,
     this.wantKeepAlive = true,
-  }) : super.builder(
-          itemBuilder: itemBuilder,
-          findChildIndexCallback: findChildIndexCallback,
-          itemCount: itemCount,
-        );
+  }) : super.builder();
 
   NestedPageView.custom({
     super.key,
@@ -54,7 +50,7 @@ class NestedPageView extends PageView {
     super.physics,
     super.pageSnapping,
     super.onPageChanged,
-    required SliverChildDelegate childrenDelegate,
+    required super.childrenDelegate,
     super.dragStartBehavior,
     super.allowImplicitScrolling,
     super.restorationId,
@@ -62,7 +58,7 @@ class NestedPageView extends PageView {
     super.scrollBehavior,
     super.padEnds,
     this.wantKeepAlive = true,
-  }) : super.custom(childrenDelegate: childrenDelegate);
+  }) : super.custom();
 
   @override
   State<PageView> createState() => _NestedPageViewState();
@@ -105,8 +101,7 @@ class _NestedPageViewState extends _PageViewState {
       void dragCancelCallback() => _dragController = null;
       // 滚动位置超出可滚动范围，自定义拖动事件控制器并保存，不要使用 ScrollStartNotification 携带的 DragStartDetails 数据作为参数
       // 如从可滚动 TabBar 的第三项开始滚动到第一项并结束滚动，依次接收到的滚动事件的序列可能如下： Start, End, Start, End
-      _dragController ??= position.drag(DragStartDetails(), dragCancelCallback)
-          as ScrollDragController;
+      _dragController ??= position.drag(DragStartDetails(), dragCancelCallback) as ScrollDragController;
       // 如果存在滚动数据
       if (notification.dragDetails != null) {
         // 开始处理拖动事件
@@ -164,13 +159,11 @@ class _NestedPageViewState extends _PageViewState {
 
   @override
   Widget build(BuildContext context) {
-    final notificationListener =
-        super.build(context) as NotificationListener<ScrollNotification>;
+    final notificationListener = super.build(context) as NotificationListener<ScrollNotification>;
     final scrollable = notificationListener.child as Scrollable;
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification notification) {
-        return notificationListener.onNotification!(notification) ||
-            _handleNotification(context, notification);
+        return notificationListener.onNotification!(notification) || _handleNotification(context, notification);
       },
       child: WrapperKeepAlive(
         child: OverscrollScrollable.from(scrollable),
